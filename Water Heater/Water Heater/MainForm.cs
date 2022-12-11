@@ -150,6 +150,15 @@ namespace Water_Heater
                 return;
             }
 
+            // Checks if input is within 0 to 10
+            if (double.Parse(waterLevelTextBox.Text) < 0 || double.Parse(waterLevelTextBox.Text) > 10)
+            {
+                MessageBox.Show("Input must be within 0 to 10");
+                waterLevelTextBox.Text = "";
+                onButton.Enabled = false;
+                return;
+            }
+
             onButton.Enabled = true;
         }
 
@@ -311,7 +320,7 @@ namespace Water_Heater
             onButton.Enabled = true;
             offButton.Enabled = false;
             waterLevelTextBox.Enabled = true;
-            waterLevelTextBox.Text = "";
+            waterLevelTextBox.Text = "0";
 
             // Resets value to zero
             temperature = 0;
