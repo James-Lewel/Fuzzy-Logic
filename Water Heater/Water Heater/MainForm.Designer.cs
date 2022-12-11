@@ -138,6 +138,7 @@
             this.onButton.TabIndex = 4;
             this.onButton.Text = "Turn On";
             this.onButton.UseVisualStyleBackColor = true;
+            this.onButton.Click += new System.EventHandler(this.onButton_Click);
             // 
             // offButton
             // 
@@ -148,6 +149,7 @@
             this.offButton.TabIndex = 5;
             this.offButton.Text = "Turn Off";
             this.offButton.UseVisualStyleBackColor = true;
+            this.offButton.Click += new System.EventHandler(this.offButton_Click);
             // 
             // inputPanel
             // 
@@ -170,6 +172,7 @@
             this.resetButton.TabIndex = 5;
             this.resetButton.Text = "Reset";
             this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
             // 
             // dataPanel
             // 
@@ -190,7 +193,7 @@
             // heatKnobRuleLabel
             // 
             this.heatKnobRuleLabel.AutoSize = true;
-            this.heatKnobRuleLabel.Location = new System.Drawing.Point(5, 148);
+            this.heatKnobRuleLabel.Location = new System.Drawing.Point(5, 178);
             this.heatKnobRuleLabel.Name = "heatKnobRuleLabel";
             this.heatKnobRuleLabel.Size = new System.Drawing.Size(64, 13);
             this.heatKnobRuleLabel.TabIndex = 0;
@@ -208,7 +211,7 @@
             // temperatureRuleLabel
             // 
             this.temperatureRuleLabel.AutoSize = true;
-            this.temperatureRuleLabel.Location = new System.Drawing.Point(5, 130);
+            this.temperatureRuleLabel.Location = new System.Drawing.Point(5, 145);
             this.temperatureRuleLabel.Name = "temperatureRuleLabel";
             this.temperatureRuleLabel.Size = new System.Drawing.Size(73, 13);
             this.temperatureRuleLabel.TabIndex = 0;
@@ -273,7 +276,9 @@
             this.MaximumSize = new System.Drawing.Size(800, 600);
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "mainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Water Heater - Fuzzy Logic";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.mainForm_FormClosed);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.graphPanel.ResumeLayout(false);
