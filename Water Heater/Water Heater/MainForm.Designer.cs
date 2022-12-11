@@ -28,13 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.instructionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphPanel = new System.Windows.Forms.Panel();
-            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.waterLevelTextBox = new System.Windows.Forms.TextBox();
             this.waterLevelLabel = new System.Windows.Forms.Label();
             this.onButton = new System.Windows.Forms.Button();
@@ -50,10 +54,14 @@
             this.levelDataLabel = new System.Windows.Forms.Label();
             this.fuzzyRuleLabel = new System.Windows.Forms.Label();
             this.fuzzyLogicLabel = new System.Windows.Forms.Label();
+            this.temperatureChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.heatChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.menuStrip.SuspendLayout();
             this.graphPanel.SuspendLayout();
             this.inputPanel.SuspendLayout();
             this.dataPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.temperatureChart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.heatChart)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -69,17 +77,9 @@
             // 
             // fileToolStripMenu
             // 
-            this.fileToolStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveGraphToolStripMenuItem});
             this.fileToolStripMenu.Name = "fileToolStripMenu";
             this.fileToolStripMenu.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenu.Text = "File";
-            // 
-            // saveGraphToolStripMenuItem
-            // 
-            this.saveGraphToolStripMenuItem.Name = "saveGraphToolStripMenuItem";
-            this.saveGraphToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-            this.saveGraphToolStripMenuItem.Text = "Save Graph";
             // 
             // helpToolStripMenuItem
             // 
@@ -92,25 +92,18 @@
             // instructionsToolStripMenuItem
             // 
             this.instructionsToolStripMenuItem.Name = "instructionsToolStripMenuItem";
-            this.instructionsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.instructionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.instructionsToolStripMenuItem.Text = "Instructions";
             // 
             // graphPanel
             // 
             this.graphPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.graphPanel.Controls.Add(this.cartesianChart1);
+            this.graphPanel.Controls.Add(this.heatChart);
+            this.graphPanel.Controls.Add(this.temperatureChart);
             this.graphPanel.Location = new System.Drawing.Point(12, 34);
             this.graphPanel.Name = "graphPanel";
             this.graphPanel.Size = new System.Drawing.Size(600, 515);
             this.graphPanel.TabIndex = 1;
-            // 
-            // cartesianChart1
-            // 
-            this.cartesianChart1.Location = new System.Drawing.Point(4, 4);
-            this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(591, 506);
-            this.cartesianChart1.TabIndex = 0;
-            this.cartesianChart1.Text = "cartesianChart1";
             // 
             // waterLevelTextBox
             // 
@@ -193,7 +186,7 @@
             // heatKnobRuleLabel
             // 
             this.heatKnobRuleLabel.AutoSize = true;
-            this.heatKnobRuleLabel.Location = new System.Drawing.Point(5, 178);
+            this.heatKnobRuleLabel.Location = new System.Drawing.Point(5, 208);
             this.heatKnobRuleLabel.Name = "heatKnobRuleLabel";
             this.heatKnobRuleLabel.Size = new System.Drawing.Size(64, 13);
             this.heatKnobRuleLabel.TabIndex = 0;
@@ -202,7 +195,7 @@
             // heatKnobDataLabel
             // 
             this.heatKnobDataLabel.AutoSize = true;
-            this.heatKnobDataLabel.Location = new System.Drawing.Point(5, 66);
+            this.heatKnobDataLabel.Location = new System.Drawing.Point(5, 86);
             this.heatKnobDataLabel.Name = "heatKnobDataLabel";
             this.heatKnobDataLabel.Size = new System.Drawing.Size(64, 13);
             this.heatKnobDataLabel.TabIndex = 0;
@@ -211,7 +204,7 @@
             // temperatureRuleLabel
             // 
             this.temperatureRuleLabel.AutoSize = true;
-            this.temperatureRuleLabel.Location = new System.Drawing.Point(5, 145);
+            this.temperatureRuleLabel.Location = new System.Drawing.Point(5, 175);
             this.temperatureRuleLabel.Name = "temperatureRuleLabel";
             this.temperatureRuleLabel.Size = new System.Drawing.Size(73, 13);
             this.temperatureRuleLabel.TabIndex = 0;
@@ -220,7 +213,7 @@
             // levelRuleLabel
             // 
             this.levelRuleLabel.AutoSize = true;
-            this.levelRuleLabel.Location = new System.Drawing.Point(5, 112);
+            this.levelRuleLabel.Location = new System.Drawing.Point(5, 142);
             this.levelRuleLabel.Name = "levelRuleLabel";
             this.levelRuleLabel.Size = new System.Drawing.Size(42, 13);
             this.levelRuleLabel.TabIndex = 0;
@@ -229,7 +222,7 @@
             // temperatureDataLabel
             // 
             this.temperatureDataLabel.AutoSize = true;
-            this.temperatureDataLabel.Location = new System.Drawing.Point(5, 48);
+            this.temperatureDataLabel.Location = new System.Drawing.Point(5, 58);
             this.temperatureDataLabel.Name = "temperatureDataLabel";
             this.temperatureDataLabel.Size = new System.Drawing.Size(73, 13);
             this.temperatureDataLabel.TabIndex = 0;
@@ -247,7 +240,7 @@
             // fuzzyRuleLabel
             // 
             this.fuzzyRuleLabel.AutoSize = true;
-            this.fuzzyRuleLabel.Location = new System.Drawing.Point(5, 94);
+            this.fuzzyRuleLabel.Location = new System.Drawing.Point(5, 124);
             this.fuzzyRuleLabel.Name = "fuzzyRuleLabel";
             this.fuzzyRuleLabel.Size = new System.Drawing.Size(86, 13);
             this.fuzzyRuleLabel.TabIndex = 0;
@@ -261,6 +254,40 @@
             this.fuzzyLogicLabel.Size = new System.Drawing.Size(89, 13);
             this.fuzzyLogicLabel.TabIndex = 0;
             this.fuzzyLogicLabel.Text = "Fuzzy Logic Data";
+            // 
+            // temperatureChart
+            // 
+            this.temperatureChart.BackColor = System.Drawing.Color.Transparent;
+            chartArea3.Name = "ChartArea1";
+            this.temperatureChart.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.temperatureChart.Legends.Add(legend3);
+            this.temperatureChart.Location = new System.Drawing.Point(3, 3);
+            this.temperatureChart.Name = "temperatureChart";
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.temperatureChart.Series.Add(series3);
+            this.temperatureChart.Size = new System.Drawing.Size(592, 253);
+            this.temperatureChart.TabIndex = 0;
+            this.temperatureChart.Text = "chart1";
+            // 
+            // heatChart
+            // 
+            this.heatChart.BackColor = System.Drawing.Color.Transparent;
+            chartArea4.Name = "ChartArea1";
+            this.heatChart.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.heatChart.Legends.Add(legend4);
+            this.heatChart.Location = new System.Drawing.Point(3, 257);
+            this.heatChart.Name = "heatChart";
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.heatChart.Series.Add(series4);
+            this.heatChart.Size = new System.Drawing.Size(592, 253);
+            this.heatChart.TabIndex = 0;
+            this.heatChart.Text = "chart1";
             // 
             // mainForm
             // 
@@ -286,6 +313,8 @@
             this.inputPanel.PerformLayout();
             this.dataPanel.ResumeLayout(false);
             this.dataPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.temperatureChart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.heatChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -295,11 +324,9 @@
 
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenu;
-        private System.Windows.Forms.ToolStripMenuItem saveGraphToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem instructionsToolStripMenuItem;
         private System.Windows.Forms.Panel graphPanel;
-        private LiveCharts.WinForms.CartesianChart cartesianChart1;
         private System.Windows.Forms.TextBox waterLevelTextBox;
         private System.Windows.Forms.Label waterLevelLabel;
         private System.Windows.Forms.Button onButton;
@@ -315,6 +342,8 @@
         private System.Windows.Forms.Label levelDataLabel;
         private System.Windows.Forms.Label fuzzyRuleLabel;
         private System.Windows.Forms.Label fuzzyLogicLabel;
+        private System.Windows.Forms.DataVisualization.Charting.Chart temperatureChart;
+        private System.Windows.Forms.DataVisualization.Charting.Chart heatChart;
     }
 }
 

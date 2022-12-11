@@ -1,8 +1,11 @@
 ﻿using DotFuzzy;
+using LiveCharts.Wpf;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using Water_Heater.Helpers;
 
 namespace Water_Heater
@@ -18,16 +21,20 @@ namespace Water_Heater
         double temperature = 0.0f;
         double heat = 0.0f;
 
+        bool canExit = false;
+
         public mainForm()
         {
             InitializeComponent();
             InitializeFuzzyLogicMembers();
             InitializeFuzzyLogicRules();
             InitializeFuzzyLogicEngine();
+            InitializeCharts();
         }
 
         public void InitializeFuzzyLogicMembers()
         {
+            // Sets level sense
             levelSense = new MembershipFunctionCollection();
             levelSense.Add(new MembershipFunction("X_SMALL", -1.0, 1.0, 1.0, 2.0));
             levelSense.Add(new MembershipFunction("SMALL", 1.5, 2.5, 2.5, 4.0));
@@ -36,6 +43,7 @@ namespace Water_Heater
             levelSense.Add(new MembershipFunction("X_LARGE", 7.5, 9.0, 9.0, 11.0));
             levelLV = new LinguisticVariable("WATER_LEVEL", levelSense);
 
+            // Sets temperature sense
             temperatureSense = new MembershipFunctionCollection();
             temperatureSense.Add(new MembershipFunction("X_SMALL", -1.0, 10.0, 10.0, 20.0));
             temperatureSense.Add(new MembershipFunction("SMALL", 10.0, 25.0, 25.0, 35.0));
@@ -44,6 +52,7 @@ namespace Water_Heater
             temperatureSense.Add(new MembershipFunction("X_LARGE", 85.0, 105.0, 105.0, 126.0));
             temperatureLV = new LinguisticVariable("TEMPERATURE_LEVEL", temperatureSense);
 
+            // Sets heat knob
             heatKnob = new MembershipFunctionCollection();
             heatKnob.Add(new MembershipFunction("VERY_LITTLE", -1.0, 1.0, 1.0, 2.0));
             heatKnob.Add(new MembershipFunction("A_LITTLE", 1.5, 2.5, 2.5, 4.0));
@@ -57,25 +66,30 @@ namespace Water_Heater
         {
             fuzzyRuleCollection = new FuzzyRuleCollection();
 
+            // Rule for x small
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS X_SMALL) AND (TEMPERATURE_LEVEL IS X_SMALL) THEN HEAT_KNOB IS A_GOOD_AMOUNT"));
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS X_SMALL) AND (TEMPERATURE_LEVEL IS SMALL) THEN HEAT_KNOB IS A_LITTLE"));
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS X_SMALL) AND (TEMPERATURE_LEVEL IS MEDIUM) THEN HEAT_KNOB IS VERY_LITTLE"));
 
+            // Rule for small
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS SMALL) AND (TEMPERATURE_LEVEL IS X_SMALL) THEN HEAT_KNOB IS A_LOT"));
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS SMALL) AND (TEMPERATURE_LEVEL IS SMALL) THEN HEAT_KNOB IS A_GOOD_AMOUNT"));
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS SMALL) AND (TEMPERATURE_LEVEL IS MEDIUM) THEN HEAT_KNOB IS VERY_LITTLE"));
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS SMALL) AND (TEMPERATURE_LEVEL IS LARGE) THEN HEAT_KNOB IS VERY_LITTLE"));
 
+            // Rule for medium
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS MEDIUM) AND (TEMPERATURE_LEVEL IS X_SMALL) THEN HEAT_KNOB IS A_WHOLE_LOT"));
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS MEDIUM) AND (TEMPERATURE_LEVEL IS SMALL) THEN HEAT_KNOB IS A_LOT"));
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS MEDIUM) AND (TEMPERATURE_LEVEL IS MEDIUM) THEN HEAT_KNOB IS A_GOOD_AMOUNT"));
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS MEDIUM) AND (TEMPERATURE_LEVEL IS LARGE) THEN HEAT_KNOB IS VERY_LITTLE"));
 
+            // Rule for large
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS LARGE) AND (TEMPERATURE_LEVEL IS X_SMALL) THEN HEAT_KNOB IS A_WHOLE_LOT"));
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS LARGE) AND (TEMPERATURE_LEVEL IS SMALL) THEN HEAT_KNOB IS A_LOT"));
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS LARGE) AND (TEMPERATURE_LEVEL IS MEDIUM) THEN HEAT_KNOB IS A_LOT"));
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS LARGE) AND (TEMPERATURE_LEVEL IS LARGE) THEN HEAT_KNOB IS A_LITTLE"));
 
+            // Rule for x large
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS X_LARGE) AND (TEMPERATURE_LEVEL IS X_SMALL) THEN HEAT_KNOB IS A_WHOLE_LOT"));
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS X_LARGE) AND (TEMPERATURE_LEVEL IS SMALL) THEN HEAT_KNOB IS A_LOT"));
             fuzzyRuleCollection.Add(new FuzzyRule("IF (WATER_LEVEL IS X_LARGE) AND (TEMPERATURE_LEVEL IS MEDIUM) THEN HEAT_KNOB IS A_LOT"));
@@ -84,11 +98,31 @@ namespace Water_Heater
 
         private void InitializeFuzzyLogicEngine()
         {
+            // Sets properties for fuzzy engine
             fuzzyEngine = new FuzzyEngine();
             fuzzyEngine.LinguisticVariableCollection.Add(levelLV);
             fuzzyEngine.LinguisticVariableCollection.Add(temperatureLV);
             fuzzyEngine.LinguisticVariableCollection.Add(heatKnobLV);
             fuzzyEngine.FuzzyRuleCollection = fuzzyRuleCollection;
+        }
+
+        public void InitializeCharts()
+        {
+            // Sets properties for temperature chart
+            temperatureChart.Series[0].Name = "Temperature";
+            temperatureChart.Series[0].Color = Color.Orange;
+            temperatureChart.Series[0].ChartType = SeriesChartType.Line;
+            temperatureChart.Series[0].Points.AddY(temperature);
+            temperatureChart.ChartAreas[0].AxisY.Minimum = 0;
+            temperatureChart.ChartAreas[0].AxisY.Maximum = 125;
+
+            // Sets properties for heat chart
+            heatChart.Series[0].Name = "Heat";
+            heatChart.Series[0].Color = Color.Red;
+            heatChart.Series[0].ChartType = SeriesChartType.Line;
+            heatChart.Series[0].Points.AddY(heat);
+            heatChart.ChartAreas[0].AxisY.Minimum = 0;
+            heatChart.ChartAreas[0].AxisY.Maximum = 10;
         }
 
         private void waterLevelTextBox_KeyUp(object sender, KeyEventArgs e)
@@ -125,28 +159,45 @@ namespace Water_Heater
             onButton.Enabled = false;
             offButton.Enabled = true;
 
-            new Thread(() =>
+            try
             {
-                while(!onButton.Enabled)
+                new Thread(() =>
                 {
-                    fuzzifyValues();
-                    defuzzifyWater();
-                    defuzzifyTemperature();
-                    defuzzifyHeatKnob();
-                    Thread.Sleep(1000);
-                }
-            }).Start();
+                    while (!canExit)
+                    {
+                        // If turned on, then fuzzify
+                        if (!onButton.Enabled) fuzzifyValues();
+
+                        defuzzifyWater();
+                        defuzzifyTemperature();
+                        defuzzifyHeatKnob();
+
+                        // Draws and updates chart
+                        updateChart();
+
+                        // Pauses for 1/2 second
+                        Thread.Sleep(500);
+                    }
+                }).Start();
+            }
+            finally
+            {
+                canExit = false;
+            }
         }
 
         public void fuzzifyValues()
         {
+            // Fuzzify level
             water = double.Parse(waterLevelTextBox.Text);
             levelLV.InputValue = water;
             levelLV.Fuzzify("X_SMALL");
 
+            // Fuzzify temperatue
             temperatureLV.InputValue = temperature;
             temperatureLV.Fuzzify("X_SMALL");
 
+            // Fuzzify heat knob
             heatKnobLV.InputValue = heat;
             heatKnobLV.Fuzzify("VERY_LITTLE");
         }
@@ -156,7 +207,7 @@ namespace Water_Heater
             // Updates Data
             levelDataLabel.Invoke((MethodInvoker)(() =>
             {
-                levelDataLabel.Text = "Level : " + water.ToString("f2");
+                levelDataLabel.Text = "Level : \n" + water.ToString("f2");
             }));
 
             // Updates Rule
@@ -168,16 +219,24 @@ namespace Water_Heater
 
         public void defuzzifyTemperature()
         {
-            fuzzyEngine.Consequent = "TEMPERATURE_LEVEL";
+            // If turned on, then use heat
+            if(!onButton.Enabled)
+            {
+                if (temperature < 80) temperature += heat;
+                else temperature -= heat;
+            }
 
-            // Updates temperature
-            if (temperature < 80) temperature += heat;
-            else temperature -= heat;
+            // If turned off, then gradually decrease temperature
+            if(!offButton.Enabled)
+            {
+                temperature --;
+                if (temperature < 0) temperature = 0;
+            }
 
             // Updates Data
             temperatureDataLabel.Invoke((MethodInvoker)(() =>
             {
-                temperatureDataLabel.Text = "Temperature : " + temperature.ToString("f2") + " °C";
+                temperatureDataLabel.Text = "Temperature : \n" + temperature.ToString("f2") + " °C";
             }));
 
             // Updates Rule
@@ -189,14 +248,24 @@ namespace Water_Heater
 
         public void defuzzifyHeatKnob()
         {
-            // Defuzzify heat
-            fuzzyEngine.Consequent = "HEAT_KNOB";
-            heat = fuzzyEngine.Defuzzify();
+            // If turned on, then use fuzzy engine
+            if(!onButton.Enabled)
+            {
+                fuzzyEngine.Consequent = "HEAT_KNOB";
+                heat = fuzzyEngine.Defuzzify();
+            }
+
+            // If turned off, then gradually decrease temperature
+            if(!offButton.Enabled)
+            {
+                heat--;
+                if(heat < 0) heat = 0;
+            }
 
             // Updates Data
             heatKnobDataLabel.Invoke((MethodInvoker)(() =>
             {
-                heatKnobDataLabel.Text = "Heat Knob : " + heat.ToString("f2") + " kW";
+                heatKnobDataLabel.Text = "Heat Knob : \n" + heat.ToString("f2") + " kW";
             }));
 
             // Updates Rule
@@ -206,29 +275,55 @@ namespace Water_Heater
             }));
         }
 
+        public void updateChart()
+        {
+            // Updates chart for temperature
+            temperatureChart.Invoke((MethodInvoker)(() =>
+            {
+                if (temperatureChart.Series[0].Points.Count > 25) temperatureChart.Series[0].Points.RemoveAt(0);
+
+                temperatureChart.Series[0].Points.AddY(temperature);
+                temperatureChart.ChartAreas[0].AxisX.Minimum = temperatureChart.Series[0].Points[0].XValue;
+                temperatureChart.ChartAreas[0].AxisX.Maximum = 25;
+            }));
+
+            // Updates chart for heat
+            heatChart.Invoke((MethodInvoker)(() =>
+            {
+                if (heatChart.Series[0].Points.Count > 25) heatChart.Series[0].Points.RemoveAt(0);
+
+                heatChart.Series[0].Points.AddY(heat);
+                heatChart.ChartAreas[0].AxisX.Minimum = temperatureChart.Series[0].Points[0].XValue;
+                heatChart.ChartAreas[0].AxisX.Maximum = 25;
+            }));
+        }
+
         private void offButton_Click(object sender, EventArgs e)
         {
-            waterLevelTextBox.Enabled = true;
             onButton.Enabled = true;
             offButton.Enabled = false;
         }
 
         private void resetButton_Click(object sender, EventArgs e)
         {
+            canExit = true;
+
             onButton.Enabled = true;
             offButton.Enabled = false;
             waterLevelTextBox.Enabled = true;
             waterLevelTextBox.Text = "";
 
+            // Resets value to zero
             temperature = 0;
             heat = 0;
+            temperatureChart.Series[0].Points.Clear();
+            heatChart.Series[0].Points.Clear();
+            InitializeCharts();
         }
 
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            onButton.Enabled = true;
-            offButton.Enabled = false;
-            waterLevelTextBox.Enabled = true;
+            canExit = true;
             waterLevelTextBox.Text = "";
         }
     }
