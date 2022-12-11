@@ -30,9 +30,9 @@
         {
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.instructionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphPanel = new System.Windows.Forms.Panel();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.waterLevelTextBox = new System.Windows.Forms.TextBox();
@@ -42,14 +42,14 @@
             this.inputPanel = new System.Windows.Forms.Panel();
             this.resetButton = new System.Windows.Forms.Button();
             this.dataPanel = new System.Windows.Forms.Panel();
-            this.fuzzyLogicLabel = new System.Windows.Forms.Label();
-            this.levelDataLabel = new System.Windows.Forms.Label();
-            this.temperatureDataLabel = new System.Windows.Forms.Label();
-            this.heatKnobDataLabel = new System.Windows.Forms.Label();
-            this.levelRuleLabel = new System.Windows.Forms.Label();
-            this.temperatureRuleLabel = new System.Windows.Forms.Label();
             this.heatKnobRuleLabel = new System.Windows.Forms.Label();
+            this.heatKnobDataLabel = new System.Windows.Forms.Label();
+            this.temperatureRuleLabel = new System.Windows.Forms.Label();
+            this.levelRuleLabel = new System.Windows.Forms.Label();
+            this.temperatureDataLabel = new System.Windows.Forms.Label();
+            this.levelDataLabel = new System.Windows.Forms.Label();
             this.fuzzyRuleLabel = new System.Windows.Forms.Label();
+            this.fuzzyLogicLabel = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.graphPanel.SuspendLayout();
             this.inputPanel.SuspendLayout();
@@ -75,6 +75,12 @@
             this.fileToolStripMenu.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenu.Text = "File";
             // 
+            // saveGraphToolStripMenuItem
+            // 
+            this.saveGraphToolStripMenuItem.Name = "saveGraphToolStripMenuItem";
+            this.saveGraphToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.saveGraphToolStripMenuItem.Text = "Save Graph";
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -86,14 +92,8 @@
             // instructionsToolStripMenuItem
             // 
             this.instructionsToolStripMenuItem.Name = "instructionsToolStripMenuItem";
-            this.instructionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.instructionsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.instructionsToolStripMenuItem.Text = "Instructions";
-            // 
-            // saveGraphToolStripMenuItem
-            // 
-            this.saveGraphToolStripMenuItem.Name = "saveGraphToolStripMenuItem";
-            this.saveGraphToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.saveGraphToolStripMenuItem.Text = "Save Graph";
             // 
             // graphPanel
             // 
@@ -118,6 +118,7 @@
             this.waterLevelTextBox.Name = "waterLevelTextBox";
             this.waterLevelTextBox.Size = new System.Drawing.Size(99, 20);
             this.waterLevelTextBox.TabIndex = 2;
+            this.waterLevelTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.waterLevelTextBox_KeyUp);
             // 
             // waterLevelLabel
             // 
@@ -186,32 +187,14 @@
             this.dataPanel.Size = new System.Drawing.Size(150, 351);
             this.dataPanel.TabIndex = 7;
             // 
-            // fuzzyLogicLabel
+            // heatKnobRuleLabel
             // 
-            this.fuzzyLogicLabel.AutoSize = true;
-            this.fuzzyLogicLabel.Location = new System.Drawing.Point(5, 12);
-            this.fuzzyLogicLabel.Name = "fuzzyLogicLabel";
-            this.fuzzyLogicLabel.Size = new System.Drawing.Size(89, 13);
-            this.fuzzyLogicLabel.TabIndex = 0;
-            this.fuzzyLogicLabel.Text = "Fuzzy Logic Data";
-            // 
-            // levelDataLabel
-            // 
-            this.levelDataLabel.AutoSize = true;
-            this.levelDataLabel.Location = new System.Drawing.Point(5, 30);
-            this.levelDataLabel.Name = "levelDataLabel";
-            this.levelDataLabel.Size = new System.Drawing.Size(42, 13);
-            this.levelDataLabel.TabIndex = 0;
-            this.levelDataLabel.Text = "Level  :";
-            // 
-            // temperatureDataLabel
-            // 
-            this.temperatureDataLabel.AutoSize = true;
-            this.temperatureDataLabel.Location = new System.Drawing.Point(5, 48);
-            this.temperatureDataLabel.Name = "temperatureDataLabel";
-            this.temperatureDataLabel.Size = new System.Drawing.Size(73, 13);
-            this.temperatureDataLabel.TabIndex = 0;
-            this.temperatureDataLabel.Text = "Temperature :";
+            this.heatKnobRuleLabel.AutoSize = true;
+            this.heatKnobRuleLabel.Location = new System.Drawing.Point(5, 148);
+            this.heatKnobRuleLabel.Name = "heatKnobRuleLabel";
+            this.heatKnobRuleLabel.Size = new System.Drawing.Size(64, 13);
+            this.heatKnobRuleLabel.TabIndex = 0;
+            this.heatKnobRuleLabel.Text = "Heat Knob :";
             // 
             // heatKnobDataLabel
             // 
@@ -222,15 +205,6 @@
             this.heatKnobDataLabel.TabIndex = 0;
             this.heatKnobDataLabel.Text = "Heat Knob :";
             // 
-            // levelRuleLabel
-            // 
-            this.levelRuleLabel.AutoSize = true;
-            this.levelRuleLabel.Location = new System.Drawing.Point(5, 112);
-            this.levelRuleLabel.Name = "levelRuleLabel";
-            this.levelRuleLabel.Size = new System.Drawing.Size(42, 13);
-            this.levelRuleLabel.TabIndex = 0;
-            this.levelRuleLabel.Text = "Level  :";
-            // 
             // temperatureRuleLabel
             // 
             this.temperatureRuleLabel.AutoSize = true;
@@ -240,14 +214,32 @@
             this.temperatureRuleLabel.TabIndex = 0;
             this.temperatureRuleLabel.Text = "Temperature :";
             // 
-            // heatKnobRuleLabel
+            // levelRuleLabel
             // 
-            this.heatKnobRuleLabel.AutoSize = true;
-            this.heatKnobRuleLabel.Location = new System.Drawing.Point(5, 148);
-            this.heatKnobRuleLabel.Name = "heatKnobRuleLabel";
-            this.heatKnobRuleLabel.Size = new System.Drawing.Size(64, 13);
-            this.heatKnobRuleLabel.TabIndex = 0;
-            this.heatKnobRuleLabel.Text = "Heat Knob :";
+            this.levelRuleLabel.AutoSize = true;
+            this.levelRuleLabel.Location = new System.Drawing.Point(5, 112);
+            this.levelRuleLabel.Name = "levelRuleLabel";
+            this.levelRuleLabel.Size = new System.Drawing.Size(42, 13);
+            this.levelRuleLabel.TabIndex = 0;
+            this.levelRuleLabel.Text = "Level  :";
+            // 
+            // temperatureDataLabel
+            // 
+            this.temperatureDataLabel.AutoSize = true;
+            this.temperatureDataLabel.Location = new System.Drawing.Point(5, 48);
+            this.temperatureDataLabel.Name = "temperatureDataLabel";
+            this.temperatureDataLabel.Size = new System.Drawing.Size(73, 13);
+            this.temperatureDataLabel.TabIndex = 0;
+            this.temperatureDataLabel.Text = "Temperature :";
+            // 
+            // levelDataLabel
+            // 
+            this.levelDataLabel.AutoSize = true;
+            this.levelDataLabel.Location = new System.Drawing.Point(5, 30);
+            this.levelDataLabel.Name = "levelDataLabel";
+            this.levelDataLabel.Size = new System.Drawing.Size(42, 13);
+            this.levelDataLabel.TabIndex = 0;
+            this.levelDataLabel.Text = "Level  :";
             // 
             // fuzzyRuleLabel
             // 
@@ -257,6 +249,15 @@
             this.fuzzyRuleLabel.Size = new System.Drawing.Size(86, 13);
             this.fuzzyRuleLabel.TabIndex = 0;
             this.fuzzyRuleLabel.Text = "Fuzzy Rule Base";
+            // 
+            // fuzzyLogicLabel
+            // 
+            this.fuzzyLogicLabel.AutoSize = true;
+            this.fuzzyLogicLabel.Location = new System.Drawing.Point(5, 12);
+            this.fuzzyLogicLabel.Name = "fuzzyLogicLabel";
+            this.fuzzyLogicLabel.Size = new System.Drawing.Size(89, 13);
+            this.fuzzyLogicLabel.TabIndex = 0;
+            this.fuzzyLogicLabel.Text = "Fuzzy Logic Data";
             // 
             // mainForm
             // 
