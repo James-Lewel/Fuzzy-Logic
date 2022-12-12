@@ -283,6 +283,38 @@ namespace Water_Heater
             }));
         }
 
+        private void temperatureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Saves an image
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                // Sets properties of dialog
+                saveFileDialog.Title = "Save Chart as Image";
+                saveFileDialog.Filter = "Image Files(*.png)|*.png;";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    temperatureChart.SaveImage(saveFileDialog.FileName, ChartImageFormat.Png);
+                }
+            }
+        }
+
+        private void heatKnobToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Saves an image
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                // Sets properties of dialog
+                saveFileDialog.Title = "Save Chart as Image";
+                saveFileDialog.Filter = "Image Files(*.png)|*.png;";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    heatChart.SaveImage(saveFileDialog.FileName, ChartImageFormat.Png);
+                }
+            }
+        }
+
         public void updateChart()
         {
             // Updates chart for temperature

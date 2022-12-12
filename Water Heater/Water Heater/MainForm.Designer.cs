@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +48,7 @@
             this.inputPanel = new System.Windows.Forms.Panel();
             this.resetButton = new System.Windows.Forms.Button();
             this.dataPanel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.heatKnobRuleLabel = new System.Windows.Forms.Label();
             this.heatKnobDataLabel = new System.Windows.Forms.Label();
             this.temperatureRuleLabel = new System.Windows.Forms.Label();
@@ -56,7 +57,9 @@
             this.levelDataLabel = new System.Windows.Forms.Label();
             this.fuzzyRuleLabel = new System.Windows.Forms.Label();
             this.fuzzyLogicLabel = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.saveTemperatureGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.temperatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.heatKnobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.graphPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.heatChart)).BeginInit();
@@ -78,6 +81,8 @@
             // 
             // fileToolStripMenu
             // 
+            this.fileToolStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveTemperatureGraphToolStripMenuItem});
             this.fileToolStripMenu.Name = "fileToolStripMenu";
             this.fileToolStripMenu.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenu.Text = "File";
@@ -109,16 +114,16 @@
             // heatChart
             // 
             this.heatChart.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.heatChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.heatChart.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.heatChart.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.heatChart.Legends.Add(legend3);
             this.heatChart.Location = new System.Drawing.Point(3, 257);
             this.heatChart.Name = "heatChart";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.heatChart.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.heatChart.Series.Add(series3);
             this.heatChart.Size = new System.Drawing.Size(592, 253);
             this.heatChart.TabIndex = 0;
             this.heatChart.Text = "chart1";
@@ -126,16 +131,16 @@
             // temperatureChart
             // 
             this.temperatureChart.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.Name = "ChartArea1";
-            this.temperatureChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.temperatureChart.Legends.Add(legend2);
+            chartArea4.Name = "ChartArea1";
+            this.temperatureChart.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.temperatureChart.Legends.Add(legend4);
             this.temperatureChart.Location = new System.Drawing.Point(3, 3);
             this.temperatureChart.Name = "temperatureChart";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.temperatureChart.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.temperatureChart.Series.Add(series4);
             this.temperatureChart.Size = new System.Drawing.Size(592, 253);
             this.temperatureChart.TabIndex = 0;
             this.temperatureChart.Text = "chart1";
@@ -219,6 +224,13 @@
             this.dataPanel.Size = new System.Drawing.Size(150, 351);
             this.dataPanel.TabIndex = 7;
             // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(58, 90);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(8, 8);
+            this.panel1.TabIndex = 1;
+            // 
             // heatKnobRuleLabel
             // 
             this.heatKnobRuleLabel.AutoSize = true;
@@ -291,12 +303,28 @@
             this.fuzzyLogicLabel.TabIndex = 0;
             this.fuzzyLogicLabel.Text = "Fuzzy Logic Data";
             // 
-            // panel1
+            // saveTemperatureGraphToolStripMenuItem
             // 
-            this.panel1.Location = new System.Drawing.Point(58, 90);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(8, 8);
-            this.panel1.TabIndex = 1;
+            this.saveTemperatureGraphToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.temperatureToolStripMenuItem,
+            this.heatKnobToolStripMenuItem});
+            this.saveTemperatureGraphToolStripMenuItem.Name = "saveTemperatureGraphToolStripMenuItem";
+            this.saveTemperatureGraphToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveTemperatureGraphToolStripMenuItem.Text = "Save Chart";
+            // 
+            // temperatureToolStripMenuItem
+            // 
+            this.temperatureToolStripMenuItem.Name = "temperatureToolStripMenuItem";
+            this.temperatureToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.temperatureToolStripMenuItem.Text = "Temperature";
+            this.temperatureToolStripMenuItem.Click += new System.EventHandler(this.temperatureToolStripMenuItem_Click);
+            // 
+            // heatKnobToolStripMenuItem
+            // 
+            this.heatKnobToolStripMenuItem.Name = "heatKnobToolStripMenuItem";
+            this.heatKnobToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.heatKnobToolStripMenuItem.Text = "Heat Knob";
+            this.heatKnobToolStripMenuItem.Click += new System.EventHandler(this.heatKnobToolStripMenuItem_Click);
             // 
             // mainForm
             // 
@@ -354,6 +382,9 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart temperatureChart;
         private System.Windows.Forms.DataVisualization.Charting.Chart heatChart;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStripMenuItem saveTemperatureGraphToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem temperatureToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem heatKnobToolStripMenuItem;
     }
 }
 
