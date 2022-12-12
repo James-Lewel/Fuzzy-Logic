@@ -1,5 +1,4 @@
 ﻿using DotFuzzy;
-using LiveCharts.Wpf;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -238,7 +237,7 @@ namespace Water_Heater
             // If turned off, then gradually decrease temperature
             if(!offButton.Enabled)
             {
-                temperature --;
+                temperature -= 5;
                 if (temperature < 0) temperature = 0;
             }
 
