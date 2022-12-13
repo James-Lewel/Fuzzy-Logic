@@ -18,6 +18,7 @@ namespace Water_Heater
 
         double water;
         double temperature = 0.0f;
+        double targetTemperature = 80;
         double heat = 0.0f;
 
         bool canExit = false;
@@ -230,7 +231,7 @@ namespace Water_Heater
             // If turned on, then use heat
             if(!onButton.Enabled)
             {
-                if (temperature < 80) temperature += heat;
+                if (temperature < targetTemperature) temperature += heat;
                 else temperature -= heat;
             }
 
